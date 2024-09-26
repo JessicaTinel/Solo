@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOLO</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<header><h1>Vamos analizar seu percentual de gordura?!?!</h1></header>
+<body>
+    <section>
+       <p>Antes de analizar seu percentual de gordura, vamos iniciar com uma breve explicação do que se trata isso. </p>
+        <p>O percentual de gordura é uma medida que indica a quantidade de gordura em relação ao peso total do corpo. É uma forma de avaliar a composição corporal e fornece informações sobre a proporção de massa gorda e massa magra (músculos, ossos, órgãos, etc.).</p>
+        <p>Manter um percentual de gordura saudável é importante para o bem-estar geral e pode influenciar a saúde metabólica, a performance atlética e a aparência física. É importante, no entanto, considerar o percentual de gordura em conjunto com outros indicadores de saúde e não focar apenas em números isolados.</p>
+    </section>
+    <section>
+        <p>O método que vamos usar é a Fórmula de Percentual de Gordura Corporal, que apesar de ser simples nós dar uma base da nossa média.</p>
+        <p>Nesse método é preciso saber: peso, altura, idade e sexo.</p>
+        <h2>Vamos lá?!</h2>
+        <label for="peso">Peso (kg):</label>
+    <input type="number" name="peso" id="peso" step="0.1">
+    <br><br>
+    <label for="altura">Altura (m):</label>
+    <input type="number" name="altura" placeholder="ex:1,75" id="altura" step="0.01">
+    <br><br>
+    <label for="idade">Idade (anos):</label>
+    <input type="number" name="idade" id="idade">
+    <br><br>
+    <label for="sexo">Sexo:</label>
+    <select id="sexo" required>
+        <option value="">Escolha...</option>
+        <option value="masculino">Masculino</option>
+        <option value="feminino">Feminino</option>
+    </select>
+    <br><br>
+    <input type="button" value="Calcular Percentual de Gordura" onclick="calcularPercentualGordura()">
+    <div id="res">Resultado</div>
+    </section>
+   
+    <section>
+        <script> 
+           function calcularPercentualGordura() {
+            // Obtém os valores dos inputs
+            const peso = parseFloat(document.getElementById('peso').value);
+            const altura = parseFloat(document.getElementById('altura').value);
+            const idade = parseInt(document.getElementById('idade').value);
+            const sexo = document.getElementById('sexo').value;
+            let resultado = '';
+
+            // Verifica se os valores são válidos
+            if (isNaN(peso) || isNaN(altura) ||  isNaN(idade) || sexo === '') {
+                document.getElementById('res').textContent = 'Por favor, preencha todos os campos.';
+                return;
+            }
+
+            // Calcula o IMC
+            const imc = peso / (altura * altura);
+
+            let percentualGordura;
+
+            
+            if (sexo === 'masculino') {
+                // Fórmula simplificada para o percentual de gordura para homens
+                percentualGordura = (1.20 * imc) + (0.23 * idade) - 16.2;
+            } else if (sexo === 'feminino') {
+                // Fórmula simplificada para o percentual de gordura para mulheres
+                percentualGordura = (1.20 * imc) + (0.23 * idade) - 10.4;
+            }
+
+            // Classifica o percentual de gordura
+            let classificacao;
+
+            if (sexo === 'masculino') {
+                if (percentualGordura < 8) {
+                    classificacao = 'Parabéns!! Você está abaixo da média!';
+                } else if (percentualGordura <= 22) {
+                    classificacao = 'Parabéns!! Você está saudável!';
+                } else if (percentualGordura <= 26) {
+                    classificacao = 'Você está acima da média! Vamos buscar sua melhor vesão?!';
+                } else {
+                    classificacao = 'Muito alta! Vamos buscar sua melhor versão?!';
+                }
+            } else if (sexo === 'feminino') {
+                if (percentualGordura < 14) {
+                    classificacao = 'Parabéns!! Você está abaixo da média!';
+                } else if (percentualGordura <= 25) {
+                    classificacao = 'Parabéns!! Você está saudável!';
+                } else if (percentualGordura <= 32) {
+                    classificacao = 'Você está acima da média! Vamos buscar sua melhor vesão?!';
+                } else {
+                    classificacao = 'Muito alta! Vamos buscar sua melhor versão?!';
+                }
+            }
+
+            // Exibe o resultado
+            document.getElementById('res').textContent = `Seu percentual de gordura é ${percentualGordura.toFixed(2)}% - ${classificacao} OBS.:Essas fórmulas são simplificações e fornecem uma estimativa geral.Para avaliações mais precisas, é sempre melhor consultar profissionais de saúde ou usar métodos diretos de medição.`;
+        }
+    </script>
+    <section>
+        <footer div class="container"> <p>Entre em contato através do 
+            <a href="https://www.instagram.com/personal_ronnytinel?igsh=MTRkMHk0cjA0ZWVwaw==" target="_blank"><img src="instagram.png" alt="Instagram"> Instagram</a> ou 
+            <a href="https://wa.me/5561995108652" target="_blank"><img src="whatsapp.png" alt="Whatsapp"> Whatsapp</a>.</p>
+        </div>
+        </footer>
+    </section>
+</body>
+</html>
